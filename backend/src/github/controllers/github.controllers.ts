@@ -1,10 +1,9 @@
 import type { Request, Response } from 'express';
-import * as githubService from '../service/github.service.ts'
+import * as githubService from '../services/github.services.ts'
 
 export const webhook = async (req: Request, res: Response) => {
     const payload = req.body
     const eventId = Array.isArray(req.headers['x-github-delivery']) ? req.headers['x-github-delivery'][0] : req.headers['x-github-delivery'] || ''
-    console.log(eventId)
     if (!eventId || !payload) {
         return res.status(400).send({ error: 'Invalid payload' });
     }
